@@ -3,7 +3,7 @@ import requests
 #TO MODIFY
 url = 'http://www.sogeticampustour.fr/concours'
 fieldName = 'code'
-ErrorMessage = 'b\'Unauthorized\''
+errorMessage = 'b\'Unauthorized\''
 
 
 liste = []
@@ -20,7 +20,7 @@ liste = [each.replace('\n', '') for each in liste]
 i = 0
 r = requests.post(url, data='lrl', allow_redirects=True)
 print(taille)
-while i < taille and str(r.content) == ErrorMessage:
+while i < taille and str(r.content) == errorMessage:
 	data = dict()
 	data[fieldName] = liste[i]
 
