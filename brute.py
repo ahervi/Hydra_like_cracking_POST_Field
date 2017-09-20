@@ -1,7 +1,11 @@
 import requests
 
-
+#TO MODIFY
 url = 'http://www.sogeticampustour.fr/concours'
+fieldName = 'code'
+ErrorMessage = 'b\'Unauthorized\''
+
+
 liste = []
 taille = 0
 with open("file.txt") as f:
@@ -9,18 +13,19 @@ with open("file.txt") as f:
        val = line
        taille +=1
        liste.append(val)
-data = dict(code=val)
+data = dict()
+data[fieldName] = val
 liste = [each.replace('\n', '') for each in liste]
 
 i = 0
 r = requests.post(url, data='lrl', allow_redirects=True)
 print(taille)
-while i < taille and str(r.content)=='b\'Unauthorized\'':
-
-	data = dict(code=liste[i])
+while i < taille and str(r.content) == ErrorMessage:
+	data = dict()
+	data[fieldName] = liste[i]
 
 	r = requests.post(url, data=data, allow_redirects=True)
-	print(str(r.content) + ' : ' + str(data['code']) +'\n')
+	print(str(r.content) + ' : ' + str(data[fieldName]) +'\n')
 	i+=1
 if i ==taille:
 	print('NOT FOUND')
